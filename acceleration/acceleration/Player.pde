@@ -44,6 +44,8 @@ class Player{
   
   }
   
+  
+  //Movimiento
   void update(){
     if(left&&!right){
        accelerationX=-0.2;
@@ -65,6 +67,7 @@ class Player{
       accelerationY=0;
     }
     
+    //Velocidad maxima
     vx+=accelerationX;
     vy+=accelerationY;
     
@@ -81,6 +84,15 @@ class Player{
       vy=-speedLimit;
     }
     
-    
+    //Mover al jugador
+    x+=vx;
+    y+=vy;
 
+  }
+
+ 
+ void display(){
+   fill(0,255,0,128);
+   rect(x,y,w,h);
+ }
 }
