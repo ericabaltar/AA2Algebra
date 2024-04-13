@@ -63,6 +63,8 @@ class Player{
     }
     if(up&&!down){
       accelerationY=-0.2;
+      gravity=0;
+      friction=1;
       
     }
     if(down&&!up){
@@ -76,6 +78,7 @@ class Player{
     
     if(!up&&!down&&!left&&!right){
       friction=0.96;
+      gravity=0.3;
     }
     
     //Velocidad maxima
@@ -85,14 +88,16 @@ class Player{
     vx*=friction;
     vy*=friction;
     
+    vy+=gravity;
+    
     if(vx>speedLimit){
       vx=speedLimit;
     }
     if(vx<-speedLimit){
       vx=-speedLimit;
     }
-    if(vy>speedLimit){
-      vy=speedLimit;
+    if(vy>3*speedLimit){
+      vy=3*speedLimit;
     }
     if(vy<-speedLimit){
       vy=-speedLimit;
