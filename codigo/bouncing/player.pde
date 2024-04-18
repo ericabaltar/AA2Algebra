@@ -31,11 +31,11 @@ class Player{
     accelerationY=0;
     speedLimit=5;
     isOnGround=false;
-    jumpForce=-3;
+    jumpForce=-10;
     
     friction=0.96;
     bounce=-0.7;
-    gravity=.3;
+    gravity=3;
     
     halfWidth=w/2;
     halfHeight=h/2;
@@ -62,31 +62,20 @@ class Player{
     
     }
     if(up&&!down){
-      //accelerationY=-0.2;
-      //gravity=0;
-      vy=jumpForce;
-      isOnGround=false;
-      friction=1;
-    
-    if(up&&!down&&isOnGround){
-      vy=jumpForce;
-      isOnGround=false;
-      friction=1;
-    }
+      accelerationY=-0.2;
       
     }
     if(down&&!up){
-      //accelerationY=0.2;
-      //friction=1;
+      accelerationY=0.2;
+      friction=1;
      
     }
     if(!up&&!down){
-      //accelerationY=0;
+      accelerationY=0;
     }
     
     if(!up&&!down&&!left&&!right){
       friction=0.96;
-     // gravity=0.3;
     }
     
     //Velocidad maxima
@@ -94,9 +83,7 @@ class Player{
     vy+=accelerationY;
     
     vx*=friction;
-    //vy*=friction;
-    
-    vy+=gravity;
+    vy*=friction;
     
     if(vx>speedLimit){
       vx=speedLimit;
@@ -104,14 +91,11 @@ class Player{
     if(vx<-speedLimit){
       vx=-speedLimit;
     }
-    if(vy>3*speedLimit){
-      vy=3*speedLimit;
+    if(vy>speedLimit){
+      vy=speedLimit;
     }
     if(vy<-speedLimit){
       vy=-speedLimit;
-    }
-    if(abs(vx)<0.2){
-      vx=0;
     }
     
     //Mover al jugador
@@ -139,8 +123,7 @@ void checkBoundaries(){
     y=0;
   }
   if(y+h>height){
-    isOnGround=true;
-    vy=0;
+    vy*=bounce;
     y=height-h;
   }
 }
