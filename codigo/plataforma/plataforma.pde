@@ -12,6 +12,8 @@ boolean left, right, up, down, space;
 void setup(){
 size(900,700);
 
+p.playerImage = loadImage("kitty.png");
+
 left=false;
 right=false;
 up=false;

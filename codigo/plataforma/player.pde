@@ -20,6 +20,9 @@ class Player{
   
   String collisionSide;
   
+  PImage playerImage;
+
+  
  // Constructor
   Player(){
     
@@ -150,8 +153,7 @@ void checkBoundaries(){
 }
  
  void display(){
-   fill(0,255,0,128);
-   rect(x,y,w,h);
+ image(playerImage, x, y, w, h);
  }
  
  void jump() {
