@@ -3,6 +3,7 @@
 //Variables
 Player p;
 Platform p2;
+boolean jumping = false;
 
 boolean left, right, up, down, space;
 
@@ -26,45 +27,41 @@ p2=new Platform(300, 460, 200, 25,"safe");
 
 //Draw
 void draw(){
-background(#F0A7E4);
-p.update();
-p.collisionSide=rectangleCollisions(p,p2);
-p.display();
-p2.display();
-displayPositionData();
+  background(#F0A7E4);
+  p.update();
+  p.jump(); // Llama al método jump en cada ciclo de draw para que el jugador salte automáticamente
+  p.display();
+  p2.display();
+  displayPositionData();
 }
-
-
 //Functions
 
-String rectangleCollisions(Player r1, Platform r2){
-  if(r1.vy<0){ return "none";} //Permite traspasar las plataformas
-  
-  float dx=(r1.x+r1.w/2)-(r2.x+r2.w/2);
-  float dy=(r1.y+r1.h/2)-(r2.y+r2.h/2);
-  
-  float combinedHalfWidths=r1.halfWidth+r2.halfWidth;
-  float combinedHalfHeights=r1.halfHeight+r2.halfHeight;
-  
-  if(abs(dx)<combinedHalfWidths) {
-    if(abs(dy)<combinedHalfHeights){
-      float overlapX=combinedHalfWidths-abs(dx);
-      float overlapY=combinedHalfHeights-abs(dy);
-      
-      if(overlapX>=overlapY){
-        if(dy>0){
-          r1.y+=overlapY;
+String rectangleCollisions(Player r1, Platform r2) {
+  if (r1.vy < 0) {
+    return "none"; // Permite traspasar las plataformas
+  }
+  float dx = (r1.x + r1.w / 2) - (r2.x + r2.w / 2);
+  float dy = (r1.y + r1.h / 2) - (r2.y + r2.h / 2);
+  float combinedHalfWidths = r1.halfWidth + r2.halfWidth;
+  float combinedHalfHeights = r1.halfHeight + r2.halfHeight;
+  if (abs(dx) < combinedHalfWidths) {
+    if (abs(dy) < combinedHalfHeights) {
+      float overlapX = combinedHalfWidths - abs(dx);
+      float overlapY = combinedHalfHeights - abs(dy);
+      if (overlapX >= overlapY) {
+        if (dy > 0) {
+          r1.y += overlapY;
           return "top";
         } else {
-          r1.y-=overlapY;
+          r1.y -= overlapY;
           return "bottom";
         }
       } else {
-        if(dx>0){
-          r1.x+=overlapX;
+        if (dx > 0) {
+          r1.x += overlapX;
           return "left";
         } else {
-          r1.x-=overlapX;
+          r1.x -= overlapX;
           return "right";
         }
       }

@@ -17,8 +17,10 @@ class Player{
   float halfWidth;
   float halfHeight;
   
+  
   String collisionSide;
   
+ // Constructor
   Player(){
     
     w=100;
@@ -27,15 +29,16 @@ class Player{
     y=150;
     vx=0;
     vy=0;
+    
     accelerationX=0;
     accelerationY=0;
-    speedLimit=5;
+    speedLimit = 15;
     isOnGround=false;
-    jumpForce=-3;
+    jumpForce = -50; // Para ajustar la fuerza del salto
     
     friction=0.96;
     bounce=-0.7;
-    gravity=.3;
+    gravity = 0.3;
     
     halfWidth=w/2;
     halfHeight=h/2;
@@ -47,6 +50,7 @@ class Player{
   
   //Movimiento
   void update(){
+    
     if(left&&!right){
        accelerationX=-0.2;
        friction=1;
@@ -149,4 +153,11 @@ void checkBoundaries(){
    fill(0,255,0,128);
    rect(x,y,w,h);
  }
+ 
+ void jump() {
+    if (isOnGround) { // Solo salta si está en el suelo
+      vy = jumpForce;
+      isOnGround = false;
+    }
+  }
 }
