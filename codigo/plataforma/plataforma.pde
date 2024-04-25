@@ -35,7 +35,7 @@ void draw(){
   p.update();
   p.display();
   p2.display();
-  displayPositionData();
+  
 }
 //Functions
 
@@ -76,13 +76,6 @@ String rectangleCollisions(Player r1, Platform r2) {
   }
 }
 
-void displayPositionData(){
-  fill(0);
-  String s="\nvx: "+p.vx+" vy: "+p.vy +
-  "\nCollisionSide: "+p.collisionSide;
-  text(s,50,50);
-  
-}
 
 void keyPressed(){
 switch(keyCode){
