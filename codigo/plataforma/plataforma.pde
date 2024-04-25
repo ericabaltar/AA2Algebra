@@ -6,13 +6,13 @@ Platform p2;
 boolean jumping = false;
 
 boolean left, right, up, down, space;
-
+PImage backgroundImage;
 
 //Setup
 void setup(){
-size(1200,1200);
+size(700,600);
+backgroundImage = loadImage("nube.gif");
 
-p.playerImage = loadImage("platform.png");
 
 left=false;
 right=false;
@@ -23,13 +23,15 @@ space=false;
 //player values
 
 p=new Player();
-p2=new Platform(300, 460, 200, 25,"safe");
+p.playerImage = loadImage("kitty.png");
+p2 = new Platform(300, 460, 200, 25, "safe", "platform.png");
+
   
 }
 
 //Draw
 void draw(){
-  background(#F0A7E4);
+ image(backgroundImage, 0, 0, width, height);
   p.update();
   p.jump(); // Llama al método jump en cada ciclo de draw para que el jugador salte automáticamente
   p.display();
