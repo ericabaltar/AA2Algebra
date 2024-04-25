@@ -126,6 +126,7 @@ class Player{
     y+=vy;
     
     checkBoundaries();
+    checkCollision();
 
   }
 
@@ -156,10 +157,11 @@ void checkBoundaries(){
  image(playerImage, x, y, w, h);
  }
  
- void jump() {
-    if (isOnGround) { // Solo salta si está en el suelo
-      vy = jumpForce;
-      isOnGround = false;
+void checkCollision(){
+    if (p2.y <= y + h && y <= p2.y + p2.h) {
+      if (p2.x <= x + w && x <= p2.x + p2.w) {
+        vy = jumpForce; // Salta cuando toca una plataforma
+      }
     }
   }
 }

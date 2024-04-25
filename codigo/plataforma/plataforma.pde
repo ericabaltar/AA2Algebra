@@ -33,7 +33,6 @@ p2 = new Platform(300, 460, 200, 25, "safe", "platform.png");
 void draw(){
  image(backgroundImage, 0, 0, width, height);
   p.update();
-  p.jump(); // Llama al método jump en cada ciclo de draw para que el jugador salte automáticamente
   p.display();
   p2.display();
   displayPositionData();
