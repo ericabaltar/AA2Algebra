@@ -37,7 +37,7 @@ class Player{
     accelerationY=0;
     speedLimit = 15;
     isOnGround=false;
-    jumpForce = -50; // Para ajustar la fuerza del salto
+    jumpForce = -10; // Para ajustar la fuerza del salto
     
     friction=0.96;
     bounce=-0.7;
@@ -126,42 +126,54 @@ class Player{
     y+=vy;
     
     checkBoundaries();
-    checkCollision();
 
   }
 
-void checkBoundaries(){
+void checkBoundaries() {
   //Left
-  if(x<0){
-    vx*=bounce;
-    x=0;
+  if (x < 0) {
+    vx *= bounce;
+    x = 0;
   }
   //Right
-  if(x+w>width){
-    vx*=bounce;
-    x=width-w;
+  if (x + w > width) {
+    vx *= bounce;
+    x = width - w;
   }
-  //Top
-  if(y<0){
-    vy*=bounce;
-    y=0;
-  }
-  if(y+h>height){
-    isOnGround=true;
-    vy=0;
-    y=height-h;
+  //Bottom (suelo)
+  if (y + h > height) {
+    isOnGround = true;
+    vy = 0;
+    y = height - h;
   }
 }
+
  
  void display(){
  image(playerImage, x, y, w, h);
  }
- 
-void checkCollision(){
-    if (p2.y <= y + h && y <= p2.y + p2.h) {
-      if (p2.x <= x + w && x <= p2.x + p2.w) {
-        vy = jumpForce; // Salta cuando toca una plataforma
-      }
+
+void checkCollision(ArrayList<Platform> platforms) {
+    for (Platform platform : platforms) {
+        if (this.intersects(platform)) {
+            if (this.vy > 0 && this.y + this.h >= platform.y && this.y + this.h + this.vy <= platform.y + platform.h) {
+
+                // Si el jugador está cayendo y su posición inferior coincide con la plataforma,
+                // ajusta su posición para que esté justo encima de la plataforma y cambia su velocidad a la velocidad de la plataforma.
+                this.y = platform.y - this.h;
+                this.isOnGround = true;
+                this.vy = -jumpForce;
+            }
+        }
     }
+}
+
+
+
+  boolean intersects(Platform platform) {
+    return (x + w > platform.x &&
+            x < platform.x + platform.w &&
+            y + h > platform.y &&
+            y < platform.y + platform.h);
   }
 }

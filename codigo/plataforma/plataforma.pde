@@ -1,43 +1,81 @@
-//gravedad
-
-//Variables
+// Variables
 Player p;
-Platform p2;
-boolean jumping = false;
-
-boolean left, right, up, down, space;
+ArrayList<Platform> platforms;
+int numPlatforms = 3; // Número inicial de plataformas
+float platformSpeed = 1; // Velocidad de las plataformas
 PImage backgroundImage;
+int score = 0; // Puntuación del jugador
+boolean left, right, up, down, space; // Declarar las variables de teclas
 
-//Setup
+
+
+
+// Setup
 void setup(){
-size(700,600);
-backgroundImage = loadImage("nube.gif");
-
-
-left=false;
-right=false;
-up=false;
-down=false;
-space=false;
-
-//player values
-
-p=new Player();
-p.playerImage = loadImage("kitty.png");
-p2 = new Platform(300, 460, 200, 25, "safe", "platform.png");
-
+  size(700, 600);
   
+  // Cargar imágenes
+  backgroundImage = loadImage("nube.gif");
+  
+  // Inicializar jugador
+  p = new Player();
+  p.playerImage = loadImage("kitty.png");
+  
+  // Inicializar lista de plataformas con tres plataformas
+  platforms = new ArrayList<Platform>();
+  for (int i = 0; i < numPlatforms; i++) {
+    float x = random(width - 200); // Posición X aleatoria
+    float y = random(height); // Posición Y aleatoria
+    float w = 200; // Ancho fijo
+    float h = 25; // Altura fija
+    platforms.add(new Platform(x, y, w, h, "safe", "platform.png"));
+  }
 }
 
-//Draw
+// Draw
 void draw(){
- image(backgroundImage, 0, 0, width, height);
+  image(backgroundImage, 0, 0, width, height);
+  
+  // Actualizar y mostrar jugador
   p.update();
   p.display();
-  p2.display();
   
+  // Actualizar y mostrar plataformas
+  for (int i = platforms.size() - 1; i >= 0; i--) {
+    Platform platform = platforms.get(i);
+    platform.moveDown(platformSpeed);
+    platform.display();
+    
+    // Eliminar plataformas que están fuera de la pantalla
+    if (platform.y > height) {
+      platforms.remove(i);
+    }
+  }
+  
+  // Generar nueva plataforma solo si hay menos de tres en pantalla
+  if (platforms.size() < 3) {
+    float x = random(width - 200); // Posición X aleatoria
+    float minY = height; // Inicializar con la posición Y más baja
+    for (Platform platform : platforms) {
+      minY = min(minY, platform.y); // Encontrar la posición Y más baja
+    }
+    float y = minY - random(150, 300); // Posición Y basada en la posición más baja
+    float w = 200; // Ancho fijo
+    float h = 25; // Altura fija
+    platforms.add(0, new Platform(x, y, w, h, "safe", "platform.png"));
+  }
+  
+  p.checkCollision(platforms);
+  displayScore();
 }
-//Functions
+
+// Muestra la puntuación en pantalla
+void displayScore() {
+  fill(255);
+  textSize(24);
+  textAlign(RIGHT);
+  text("Score: " + score, width - 20, 40);
+}
 
 String rectangleCollisions(Player r1, Platform r2) {
   if (r1.vy < 0) {

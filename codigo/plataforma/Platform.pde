@@ -4,6 +4,7 @@ class Platform{
   float halfWidth;
   float halfHeight;
   PImage platformImage;
+  boolean touched;
   
   Platform(float _x, float _y, float _w, float _h, String _typeof, String imagePath){
     w=_w;
@@ -14,9 +15,15 @@ class Platform{
     platformImage = loadImage(imagePath);
     halfWidth=w/2;
     halfHeight=h/2;
+    touched = false; 
   }
   
   void display(){
-  image(platformImage, x, y, w, h);
+    image(platformImage, x, y, w, h);
+  }
+  
+  // Método para mover la plataforma hacia abajo
+  void moveDown(float speed){
+    y += speed;
   }
 }
