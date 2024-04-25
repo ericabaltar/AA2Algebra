@@ -10,9 +10,9 @@ boolean left, right, up, down, space;
 
 //Setup
 void setup(){
-size(900,700);
+size(1200,1200);
 
-p.playerImage = loadImage("kitty.png");
+p.playerImage = loadImage("platform.png");
 
 left=false;
 right=false;
