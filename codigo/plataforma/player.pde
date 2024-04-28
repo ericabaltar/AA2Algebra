@@ -37,7 +37,7 @@ class Player{
     accelerationY=0;
     speedLimit = 12;
     isOnGround=false;
-    jumpForce = 15; // Para ajustar la fuerza del salto
+    jumpForce = 15;
     
     friction=0.96;
     bounce=-0.7;
@@ -57,43 +57,32 @@ class Player{
     if(left&&!right){
        accelerationX=-0.2;
        friction=1;
-       
     }
+    
     if(right&&!left){
        accelerationX=0.2;
        friction=1;
-       
     }
+    
     if(!left&&!right){
       accelerationX=0;
     
     }
+    
     if(up&&!down){
-      //accelerationY=-0.2;
-      //gravity=0;
       vy=jumpForce;
       isOnGround=false;
       friction=1;
     
-    if(up&&!down&&isOnGround){
-      vy=jumpForce;
-      isOnGround=false;
-      friction=1;
+        if(up&&!down&&isOnGround){
+          vy=jumpForce;
+          isOnGround=false;
+          friction=1;
+        }
     }
-      
-    }
-    if(down&&!up){
-      //accelerationY=0.2;
-      //friction=1;
-     
-    }
-    if(!up&&!down){
-      //accelerationY=0;
-    }
-    
+
     if(!up&&!down&&!left&&!right){
       friction=0.96;
-     // gravity=0.3;
     }
     
     //Velocidad maxima
@@ -101,7 +90,6 @@ class Player{
     vy+=accelerationY;
     
     vx*=friction;
-    //vy*=friction;
     
     vy+=gravity;
     
@@ -167,17 +155,6 @@ void checkCollision(ArrayList<Platform> platforms) {
         }
     }
 }
-
-void checkCoinCollisionCoin(ArrayList<Coin> coins) {
-    for (Coin coin : coins) {
-      if (coin.intersects(this)) {
-        coin.collected = true; // Marcar la moneda como recolectada
-        score++; // Incrementar el puntaje
-      }
-    }
- }
-
-
 
   boolean intersects(Platform platform) {
     return (x + w > platform.x &&

@@ -28,19 +28,6 @@ void setup(){
   // Inicializar lista de monedas
   coins = new ArrayList<Coin>();
   
-  for (int i = 0; i < numPlatforms; i++) {
-    float x = random(width - 200); // Posición X aleatoria
-    float y = random(height); // Posición Y aleatoria
-    float w = 200; // Ancho fijo
-    float h = 25; // Altura fija
-    Platform platform = new Platform(x, y, w, h, "safe", "platform.png");
-    platforms.add(platform); // Agrega la plataforma a la lista de plataformas
-    
-    float coinX = x + w / 2 - 25; // Posición X de la moneda centrada en la plataforma
-    float coinY = y - 50; // Posición Y de la moneda arriba de la plataforma
-    Coin coin = new Coin(coinX, coinY, 50, 50, "coin.png"); // Crea una moneda
-    coins.add(coin); // Agrega la moneda a la lista de monedas
-  }
 }
 
 void draw(){
@@ -117,22 +104,21 @@ void draw(){
   }
   
   p.checkCollision(platforms);
-  p.checkCoinCollisionCoin(coins);
+
   displayScore();
   
    // Verificar si el jugador ha llegado al fondo de la pantalla
   if (p.y + p.h >= height) {
-    println("El jugador ha llegado al fondo de la pantalla. Game Over.");
     gameOver = true;
   }
   
   if (gameOver) {
-  background(0); // Puedes establecer el color de fondo como negro o cualquier otro color que desees
-  fill(255); // Color del texto blanco
-  textSize(48); // Tamaño del texto
-  textAlign(CENTER, CENTER); // Alineación del texto al centro
-  text("Game Over", width / 2, height / 2); // Mensaje de "Game Over" centrado en la pantalla
-}
+    background(0);
+    fill(255);
+    textSize(48);
+    textAlign(CENTER, CENTER);
+    text("Game Over", width / 2, height / 2);
+  }
 }
 
 // Muestra la puntuación en pantalla
