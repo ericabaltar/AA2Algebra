@@ -35,7 +35,7 @@ class Player{
     
     accelerationX=0;
     accelerationY=0;
-    speedLimit = 15;
+    speedLimit = 12;
     isOnGround=false;
     jumpForce = 15; // Para ajustar la fuerza del salto
     
@@ -167,6 +167,15 @@ void checkCollision(ArrayList<Platform> platforms) {
         }
     }
 }
+
+void checkCoinCollisionCoin(ArrayList<Coin> coins) {
+    for (Coin coin : coins) {
+      if (coin.intersects(this)) {
+        coin.collected = true; // Marcar la moneda como recolectada
+        score++; // Incrementar el puntaje
+      }
+    }
+ }
 
 
 
