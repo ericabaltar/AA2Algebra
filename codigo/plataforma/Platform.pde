@@ -15,7 +15,7 @@ class Platform{
     platformImage = loadImage(imagePath);
     halfWidth=w/2;
     halfHeight=h/2;
-    touched = false; 
+    touched = true; 
   }
   
   void display(){

@@ -37,7 +37,7 @@ class Player{
     accelerationY=0;
     speedLimit = 15;
     isOnGround=false;
-    jumpForce = -10; // Para ajustar la fuerza del salto
+    jumpForce = 15; // Para ajustar la fuerza del salto
     
     friction=0.96;
     bounce=-0.7;
